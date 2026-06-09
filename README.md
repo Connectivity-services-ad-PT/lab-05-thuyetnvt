@@ -31,7 +31,6 @@ OpenAPI Contract
 → Postman/Newman test lại stack end‑to‑end
 → Evidence (report, log, screenshots)
 ```
-
 Thông điệp chính của buổi học:
 
 > Một container đơn lẻ chưa đủ – các service thực tế luôn phải tương tác với cơ sở dữ liệu và/hoặc AI/ML.  
@@ -44,7 +43,7 @@ Thông điệp chính của buổi học:
 Sau khi hoàn thành Lab 05, mỗi nhóm cần làm được:
 
 - Viết `docker-compose.yml` để định nghĩa ít nhất ba service: API, AI (hoặc worker) và database.
-- Dùng network `team-internal` để giao tiếp nội bộ và tham gia mạng chung `class-net` khi cần thiết.
+- Dùng network `team-internal` để giao tiếp nội bộ giữa các service.
 - Chạy API bằng non‑root user trong container và giữ nguyên `HEALTHCHECK` như Lab 04.
 - Thêm healthcheck cho DB (`pg_isready`) và AI service để Compose biết khi nào container sẵn sàng.
 - Tách cấu hình runtime qua `.env.example` (ví dụ `APP_PORT`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `SERVICE_VERSION`, `AUTH_TOKEN`).
@@ -78,6 +77,8 @@ FIT4110_lab05_docker_compose_readiness/
 ├── contracts/
 │   └── iot-ingestion.openapi.yaml
 ├── postman/
+│   ├── collections/
+│   │   └── FIT4110_lab05_docker_compose.postman_collection.json
 │   └── environments/
 │       └── FIT4110_lab05_local.postman_environment.json
 ├── checklists/
@@ -145,6 +146,12 @@ Chạy compose (build & run):
 docker compose up -d --build
 ```
 
+Hoặc dùng Makefile nhanh hơn:
+
+```bash
+make compose-up
+```
+
 Compose sẽ kéo hoặc build image, tạo mạng `team-internal`, gắn volume DB và khởi động lần lượt `db` → `ai-service` → `api`. Bạn có thể theo dõi log:
 
 ```bash
@@ -157,13 +164,37 @@ Kiểm tra readiness của từng service:
 - DB: `docker exec -it fit4110-db-lab05 pg_isready -U $POSTGRES_USER`
 - AI: `curl http://localhost:9000/health` (service mẫu trả về JSON đơn giản)
 
-Sau khi stack đã sẵn sàng, chạy lại Postman collection giống Lab 04 (sửa `baseUrl` thành `http://localhost:8000`).
+Sau khi stack đã sẵn sàng, chạy Newman test bằng:
 
-Dừng toàn bộ stack:
+```bash
+npm run test:compose
+```
+
+Hoặc dùng Makefile:
+
+```bash
+make test-compose
+```
+
+Script sẽ kiểm tra:
+- `GET /health` cho API
+- `GET /health` và `POST /predict` cho AI service
+- `POST /readings` để tạo data
+- `GET /readings/latest`
+- `GET /readings/{{reading_id}}`
+
+Report sẽ được xuất vào thư mục `reports/` dưới dạng:
+
+```text
+reports/newman-lab05-compose.html
+reports/newman-lab05-compose.xml
+```
+
+Sau đó dừng toàn bộ stack:
 
 ```bash
 docker compose down
-```
+```  
 
 ---
 

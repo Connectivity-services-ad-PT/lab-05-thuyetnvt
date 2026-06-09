@@ -27,6 +27,9 @@ npm install
 # Copy .env.example sang .env và chỉnh sửa nếu cần
 cp .env.example .env
 
+# Nếu dùng Windows PowerShell:
+# copy .env.example .env
+
 # Build images (nếu chưa có) và khởi động các container trong nền
 docker compose up -d --build
 ```

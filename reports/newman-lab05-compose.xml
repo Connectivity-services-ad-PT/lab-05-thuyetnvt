@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite id="0" hostname="http://localhost" package="" name="API Health" tests="1" failures="0" errors="0" timestamp="2026-06-09T10:50:59.136" time="0.046">
+    <properties>
+      <property name="baseUrl" value="http://localhost:8000"/>
+      <property name="authToken" value="local-dev-token"/>
+      <property name="env" value="local"/>
+      <property name="reading_id" value="R-20260609-0001"/>
+    </properties>
+    <testcase classname=" / API Health" name="API health returns 200" time="0.046"/>
+  </testsuite>
+  <testsuite id="1" hostname="http://localhost" package="" name="AI Health" tests="1" failures="0" errors="0" timestamp="2026-06-09T10:50:59.182" time="0.023">
+    <properties>
+      <property name="baseUrl" value="http://localhost:8000"/>
+      <property name="authToken" value="local-dev-token"/>
+      <property name="env" value="local"/>
+      <property name="reading_id" value="R-20260609-0001"/>
+    </properties>
+    <testcase classname=" / AI Health" name="AI health returns 200" time="0.023"/>
+  </testsuite>
+  <testsuite id="2" hostname="http://localhost" package="" name="AI Predict" tests="2" failures="0" errors="0" timestamp="2026-06-09T10:50:59.205" time="0.007">
+    <properties>
+      <property name="baseUrl" value="http://localhost:8000"/>
+      <property name="authToken" value="local-dev-token"/>
+      <property name="env" value="local"/>
+      <property name="reading_id" value="R-20260609-0001"/>
+    </properties>
+    <testcase classname=" / AI Predict" name="AI predict returns 200" time="0.004"/>
+    <testcase classname=" / AI Predict" name="AI predict returns objects" time="0.004"/>
+  </testsuite>
+  <testsuite id="3" hostname="http://localhost" package="" name="Create Reading" tests="1" failures="0" errors="0" timestamp="2026-06-09T10:50:59.212" time="0.017">
+    <properties>
+      <property name="baseUrl" value="http://localhost:8000"/>
+      <property name="authToken" value="local-dev-token"/>
+      <property name="env" value="local"/>
+      <property name="reading_id" value="R-20260609-0001"/>
+    </properties>
+    <testcase classname=" / Create Reading" name="Create reading returns 201" time="0.017"/>
+  </testsuite>
+  <testsuite id="4" hostname="http://localhost" package="" name="Get Latest Readings" tests="2" failures="0" errors="0" timestamp="2026-06-09T10:50:59.229" time="0.007">
+    <properties>
+      <property name="baseUrl" value="http://localhost:8000"/>
+      <property name="authToken" value="local-dev-token"/>
+      <property name="env" value="local"/>
+      <property name="reading_id" value="R-20260609-0001"/>
+    </properties>
+    <testcase classname=" / Get Latest Readings" name="Latest readings returns 200" time="0.004"/>
+    <testcase classname=" / Get Latest Readings" name="Latest readings contains at least one item" time="0.004"/>
+  </testsuite>
+  <testsuite id="5" hostname="http://localhost" package="" name="Get Reading by ID" tests="2" failures="0" errors="0" timestamp="2026-06-09T10:50:59.236" time="0.007">
+    <properties>
+      <property name="baseUrl" value="http://localhost:8000"/>
+      <property name="authToken" value="local-dev-token"/>
+      <property name="env" value="local"/>
+      <property name="reading_id" value="R-20260609-0001"/>
+    </properties>
+    <testcase classname=" / Get Reading by ID" name="Get reading by ID returns 200" time="0.004"/>
+    <testcase classname=" / Get Reading by ID" name="Get reading by ID returns reading_id" time="0.004"/>
+  </testsuite>
+</testsuites>
